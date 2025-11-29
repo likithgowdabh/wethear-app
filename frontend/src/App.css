@@ -111,12 +111,13 @@ html, body {
 .dashboard-container { display: grid; grid-template-columns: 350px 1fr; gap: 30px; width: 100%; }
 .dashboard-left, .dashboard-right { display: flex; flex-direction: column; gap: 20px; }
 
+/* Cards Common */
 .status-card, .info-card, .graph-card, .hourly-row, .news-card, .auth-card { 
   background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); 
   border-radius: 24px; transition: transform 0.4s, box-shadow 0.4s; 
 }
 .status-card:hover, .info-card:hover, .graph-card:hover, .news-card:hover { 
-  transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); border-color: rgba(255,255,255,0.2); 
+  transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); border-color: rgba(255,255,255,0.2); 
 }
 
 /* Status Card */
@@ -132,9 +133,7 @@ html, body {
 .card-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--glass-border); padding-bottom: 15px; margin-bottom: 20px; }
 .card-title { display: flex; align-items: center; gap: 10px; margin: 0; }
 
-/* --- NEW FEATURE STYLES --- */
-
-/* Modals */
+/* --- MODALS --- */
 .modal-overlay { 
   position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
   background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); 
@@ -273,38 +272,57 @@ html, body {
 
 /* Mobile Devices (768px and below) */
 @media (max-width: 768px) {
-  .hero-section h1 { font-size: 2.5rem; }
-  
-  /* Navbar adjustments */
-  .navbar { flex-wrap: wrap; gap: 10px; justify-content: space-between; padding: 10px 15px; }
-  .logo span { display: none; /* Hide app name on small screens */ }
-  .nav-links { 
-    position: fixed; bottom: 0; left: 0; width: 100%; 
-    background: #111; padding: 10px; 
-    border-top: 1px solid var(--glass-border); 
-    justify-content: space-around; z-index: 1000;
-  }
-  .nav-item { flex-direction: column; font-size: 0.7rem; gap: 4px; padding: 5px; }
-  .nav-item svg { width: 20px; height: 20px; }
-  .nav-right { gap: 10px; }
-  
-  /* Stack grid and reduce padding */
-  .dashboard-container { gap: 20px; }
-  .main-content { padding: 80px 15px 80px 15px; /* Add bottom padding for bottom nav */ }
-  
-  /* Cards */
-  .status-card { padding: 30px 20px; }
+  /* 1. Header & Text */
+  .hero-section h1 { font-size: 2.2rem; }
   .main-temp { font-size: 4rem; }
+  
+  /* 2. Navbar Restructuring (App-like Bottom Nav) */
+  .navbar { 
+    top: auto; bottom: 0; left: 0; 
+    border-bottom: none; border-top: 1px solid var(--glass-border);
+    padding: 10px; background: #0a0a0a; z-index: 9999;
+    justify-content: center;
+  }
+  .logo { display: none; /* Hide Logo on Mobile to save space */ }
+  .nav-links { 
+    width: 100%; display: flex; justify-content: space-between; gap: 0; 
+  }
+  .nav-item { 
+    flex-direction: column; font-size: 0.7rem; gap: 4px; padding: 5px; 
+    width: 33%; justify-content: center; text-align: center;
+  }
+  .nav-item svg { width: 22px; height: 22px; }
+  .nav-right { 
+    position: fixed; top: 15px; right: 15px; z-index: 10000;
+    background: rgba(0,0,0,0.6); padding: 5px 10px; border-radius: 20px; 
+    backdrop-filter: blur(10px);
+  }
+  .nav-lang-toggle { display: none; /* Hide lang toggle from top bar on mobile */ }
+
+  /* 3. Layout Stacking */
+  .dashboard-container { display: flex; flex-direction: column; gap: 20px; }
+  .main-content { padding: 20px 15px 90px 15px; /* Extra bottom padding for nav */ }
+  
+  /* 4. Card Adjustments */
+  .status-card { padding: 30px 20px; }
+  .grid-stats { gap: 8px; }
+  .stat-box { font-size: 0.8rem; padding: 8px 12px; }
+  
+  /* 5. Search Bar */
+  .search-wrapper { width: 95%; padding: 5px; margin-top: 60px; /* Push down below absolute profile */ }
+  .search-wrapper input { padding: 10px; }
+  .search-wrapper button { padding: 10px 20px; font-size: 0.9rem; }
+
+  /* 6. Hourly & Details */
+  .hourly-row { grid-template-columns: 70px 1fr; gap: 10px; padding: 15px; }
+  .hr-data-col { display: none; /* Hide complex data on small screens */ }
   .summary-grid { grid-template-columns: 1fr; }
+  .detail-grid { gap: 8px; }
   
-  /* Hide complex elements */
-  .hourly-row { grid-template-columns: 80px 1fr; gap: 10px; padding: 15px; }
-  .hr-data-col { display: none; }
+  /* 7. Graph */
+  .graph-card { padding: 20px; min-height: 350px; }
+  .chart-area { height: 250px; }
   
-  /* Modal */
-  .modal-content { width: 95%; padding: 20px; margin: 10px; }
-  .list-item { padding: 10px; }
-  
-  /* Lang toggle small buttons */
-  .nav-lang-toggle { display: none; /* Hide top lang toggle, rely on profile menu or auth */ }
+  /* 8. Modals */
+  .modal-content { width: 95%; max-height: 80vh; padding: 20px; margin: 10px; }
 }
